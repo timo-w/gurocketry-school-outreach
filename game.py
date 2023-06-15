@@ -35,7 +35,7 @@ ball_velocity = 0
 
 # Engine properties
 engine_active = False
-fuel = 50
+fuel = 100
 time_elapsed = 0
 
 # Game over
@@ -90,8 +90,11 @@ while True:
     else:
         if duration > 0:
             duration -= 1
-            fuel -= 1
-            engine_active = True
+            if fuel <= 0:
+                engine_active = False
+            else:
+                fuel -= 1
+                engine_active = True
         else:
             engine_active = False
 
