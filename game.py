@@ -2,11 +2,28 @@ import pygame
 import sys
 from random import randint
 
+
+
+
+########################
+
+# How long to wait until starting the landing burn
+delay = 37
+# How long the burn will last
+duration = 31
+# The power level of the engine
+engine_power = 1
+
+########################
+
+
+
+
 # Initialize Pygame
 pygame.init()
 
 # Set up the display
-width, height = 800, 600
+width, height = 600, 800
 display = pygame.display.set_mode((width, height))
 clock = pygame.time.Clock()
 
@@ -17,11 +34,14 @@ ball_position = [width // 2, ball_radius]
 ball_velocity = 0
 
 # Engine properties
-engine_power = 1
 engine_active = False
+fuel = 50
+time_elapsed = 0
 
 # Game over
-game_over = False
+game_finished = False
+game_end_state = ""
+score = 0
 
 # Gravity
 gravity = 0.5
@@ -31,7 +51,7 @@ ground_height = height - ball_radius
 
 # Background image
 background_image = pygame.image.load("gurocketry-school-outreach/stars.jpg").convert()
-background_image = pygame.transform.scale(background_image, (800, 600))
+background_image = pygame.transform.scale(background_image, (800, 800))
 
 # Rocket
 rocket_image = pygame.image.load("gurocketry-school-outreach/rocket.png")
@@ -42,8 +62,12 @@ flame_image = pygame.image.load("gurocketry-school-outreach/flame.png")
 flame_image = pygame.transform.scale(flame_image, (64, 64))
 
 # Text
-font = pygame.font.SysFont("Arial", 30)
-txt_crashed = font.render("The rocket's broken! Try again!", True, (255, 255, 255))
+font = pygame.font.SysFont("Arial", 26)
+txt_fuel = font.render("Fuel left: " + str(fuel), True, (255, 255, 255))
+txt_time = font.render("Time elapsed: " + str(time_elapsed), True, (255, 255, 255))
+txt_score = font.render("Score: " + str(score), True, (255, 255, 255))
+txt_crashed = font.render("The rocket hit the surface too hard! Try again!", True, (255, 255, 255))
+txt_success = font.render("Successful landing!", True, (255, 255, 255))
 
 # Game loop
 while True:
@@ -52,12 +76,29 @@ while True:
         if event.type == pygame.QUIT:
             pygame.quit()
             sys.exit()
-        elif event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_SPACE and not game_over:
-                engine_active = True
-        elif event.type == pygame.KEYUP:
-            if event.key == pygame.K_SPACE:
-                engine_active = False
+        # elif event.type == pygame.KEYDOWN:
+        #     if event.key == pygame.K_SPACE and not game_finished:
+        #         engine_active = True
+        # elif event.type == pygame.KEYUP:
+        #     if event.key == pygame.K_SPACE:
+        #         engine_active = False
+
+    
+    # Keep track of stats
+    if delay > 0:
+        delay -= 1
+    else:
+        if duration > 0:
+            duration -= 1
+            fuel -= 1
+            engine_active = True
+        else:
+            engine_active = False
+
+    if not game_finished:
+        time_elapsed += 1
+
+
 
     # Update ball position
     ball_velocity += gravity
@@ -69,9 +110,10 @@ while True:
 
     # Check if ball hits the ground
     if ball_position[1] + ball_radius + 50 >= ground_height:
-        if ball_velocity > 10:
-            # hit ground too hard
-            game_over = True
+        game_finished = True
+        score = fuel + (1000 - time_elapsed)
+        if ball_velocity > 5:
+            game_end_state = "crashed"
         ball_position[1] = ground_height - ball_radius - 50
         ball_velocity = 0
         
@@ -93,8 +135,19 @@ while True:
     pygame.draw.rect(display, (200, 170, 160), (0, ground_height, width, height - ground_height))
 
     # Text
-    if game_over:
-        display.blit(txt_crashed,(400 - txt_crashed.get_width() // 2, 400 - txt_crashed.get_height() // 2))
+    if game_finished and game_end_state == "crashed":
+        display.blit(txt_crashed,(300 - txt_crashed.get_width() // 2, 400 - txt_crashed.get_height() // 2))
+    elif game_finished:
+        display.blit(txt_success,(300 - txt_success.get_width() // 2, 400 - txt_success.get_height() // 2))
+        txt_score = font.render("Score: " + str(score), True, (255, 255, 255))
+        display.blit(txt_score,(300 - txt_score.get_width() // 2, 430 - txt_score.get_height() // 2))
+    
+
+    display.blit(txt_fuel,(30, 100 - txt_fuel.get_height() // 2))
+    txt_fuel = font.render("Fuel left: " + str(fuel), True, (255, 255, 255))
+
+    display.blit(txt_time,(30, 60 - txt_time.get_height() // 2))
+    txt_time = font.render("Time elapsed: " + str(time_elapsed), True, (255, 255, 255))
 
     # Update the display
     pygame.display.flip()
