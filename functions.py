@@ -52,8 +52,9 @@ def land_on(destination):
 
 
 def survey_planet():
-    # YOUR CODE HERE
-    pass # <- delete me first!
+    print("\n--------------------------------\n\n| SURVEY |\n")
+    # YOUR CODE BELOW THIS LINE
+    
 
 
 
@@ -66,3 +67,4 @@ prepare()
 launch()
 navigate_to(planet)
 land_on(planet)
+survey_planet()
