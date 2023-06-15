@@ -20,6 +20,9 @@ ball_velocity = 0
 engine_power = 1
 engine_active = False
 
+# Game over
+game_over = False
+
 # Gravity
 gravity = 0.5
 
@@ -38,15 +41,19 @@ rocket_image = pygame.transform.scale(rocket_image, (150, 150))
 flame_image = pygame.image.load("gurocketry-school-outreach/flame.png")
 flame_image = pygame.transform.scale(flame_image, (64, 64))
 
+# Text
+font = pygame.font.SysFont("Arial", 30)
+txt_crashed = font.render("The rocket's broken! Try again!", True, (255, 255, 255))
+
 # Game loop
-while True :
+while True:
     # Handle events
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
             sys.exit()
         elif event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_SPACE:
+            if event.key == pygame.K_SPACE and not game_over:
                 engine_active = True
         elif event.type == pygame.KEYUP:
             if event.key == pygame.K_SPACE:
@@ -63,7 +70,8 @@ while True :
     # Check if ball hits the ground
     if ball_position[1] + ball_radius + 50 >= ground_height:
         if ball_velocity > 10:
-            ball_color = (0, 255, 255)
+            # hit ground too hard
+            game_over = True
         ball_position[1] = ground_height - ball_radius - 50
         ball_velocity = 0
         
@@ -82,8 +90,14 @@ while True :
         display.blit(flame_image, (int(ball_position[0]) - 30 + randint(-2, 2), int(ball_position[1]) + 45 + randint(-2, 2)))
 
     # Draw the ground
-    pygame.draw.rect(display, (200, 200, 200), (0, ground_height, width, height - ground_height))
+    pygame.draw.rect(display, (200, 170, 160), (0, ground_height, width, height - ground_height))
+
+    # Text
+    if game_over:
+        display.blit(txt_crashed,(400 - txt_crashed.get_width() // 2, 400 - txt_crashed.get_height() // 2))
 
     # Update the display
     pygame.display.flip()
     clock.tick(30)
+
+
