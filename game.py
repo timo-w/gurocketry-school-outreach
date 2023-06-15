@@ -8,9 +8,9 @@ from random import randint
 ########################
 
 # How long to wait until starting the landing burn
-delay = 37
+delay = 30
 # How long the burn will last
-duration = 31
+duration = 20
 # The power level of the engine
 engine_power = 1
 
@@ -76,13 +76,6 @@ while True:
         if event.type == pygame.QUIT:
             pygame.quit()
             sys.exit()
-        # elif event.type == pygame.KEYDOWN:
-        #     if event.key == pygame.K_SPACE and not game_finished:
-        #         engine_active = True
-        # elif event.type == pygame.KEYUP:
-        #     if event.key == pygame.K_SPACE:
-        #         engine_active = False
-
     
     # Keep track of stats
     if delay > 0:
@@ -93,11 +86,12 @@ while True:
             if fuel <= 0:
                 engine_active = False
             else:
-                fuel -= 1
+                fuel = round(fuel - engine_power, 2)
                 engine_active = True
         else:
             engine_active = False
 
+    # Increment time
     if not game_finished:
         time_elapsed += 1
 
@@ -146,14 +140,14 @@ while True:
         display.blit(txt_score,(300 - txt_score.get_width() // 2, 430 - txt_score.get_height() // 2))
     
 
-    display.blit(txt_fuel,(30, 100 - txt_fuel.get_height() // 2))
+    # Display fuel and time text
     txt_fuel = font.render("Fuel left: " + str(fuel), True, (255, 255, 255))
-
-    display.blit(txt_time,(30, 60 - txt_time.get_height() // 2))
     txt_time = font.render("Time elapsed: " + str(time_elapsed), True, (255, 255, 255))
+    display.blit(txt_fuel,(30, 100 - txt_fuel.get_height() // 2))
+    display.blit(txt_time,(30, 60 - txt_time.get_height() // 2))
+    
 
     # Update the display
     pygame.display.flip()
     clock.tick(30)
-
 
