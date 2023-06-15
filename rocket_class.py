@@ -1,4 +1,4 @@
-# GU Rocketry
+# GU Rocketry - Coding with Rockets
 # Rocket class and definitions used in part 3
 
 class Rocket:

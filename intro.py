@@ -1,4 +1,4 @@
-# GU Rocketry
+# GU Rocketry - Coding with Rockets
 # Part 1 - Introduction to Python
 
 

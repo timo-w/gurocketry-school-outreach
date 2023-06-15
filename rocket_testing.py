@@ -1,4 +1,4 @@
-# GU Rocketry
+# GU Rocketry - Coding with Rockets
 # Part 3 - Making Decisions using the "If" Statement
 from rocket_class import *
 

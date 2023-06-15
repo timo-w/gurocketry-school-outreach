@@ -1,4 +1,4 @@
-# GU Rocketry
+# GU Rocketry - Coding with Rockets
 # Part 2 - Using Functions
 from time import sleep
 
