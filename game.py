@@ -50,15 +50,15 @@ gravity = 0.5
 ground_height = height - ball_radius
 
 # Background image
-background_image = pygame.image.load("gurocketry-school-outreach/stars.jpg").convert()
+background_image = pygame.image.load("stars.jpg").convert()
 background_image = pygame.transform.scale(background_image, (800, 800))
 
 # Rocket
-rocket_image = pygame.image.load("gurocketry-school-outreach/rocket.png")
+rocket_image = pygame.image.load("rocket.png")
 rocket_image = pygame.transform.scale(rocket_image, (150, 150))
 
 # Flame
-flame_image = pygame.image.load("gurocketry-school-outreach/flame.png")
+flame_image = pygame.image.load("flame.png")
 flame_image = pygame.transform.scale(flame_image, (64, 64))
 
 # Text
