@@ -7,7 +7,7 @@ from rocket_class import *
 def test_rocket(rocket):
     has_engine = rocket.has_engine
     has_parachute = rocket.has_parachute
-    rats_in_cockpit = rocket.rats_in_cockpit
+    has_rats_in_cockpit = rocket.has_rats_in_cockpit
     crew_members = rocket.crew_members
     fuel_level = rocket.fuel_level
 
@@ -48,4 +48,3 @@ test_rocket(rocket_2)
 test_rocket(rocket_3)
 test_rocket(rocket_4)
 test_rocket(rocket_5)
-

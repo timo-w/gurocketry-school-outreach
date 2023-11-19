@@ -54,7 +54,6 @@ def land_on(destination):
 def survey_planet():
     print("\n--------------------------------\n\n| SURVEY |\n")
     # YOUR CODE BELOW THIS LINE
-    
 
 
 

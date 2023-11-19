@@ -7,12 +7,12 @@ class Rocket:
         self.name = name
         self.has_engine = hasEngine
         self.has_parachute = hasParachute
-        self.rats_in_cockpit = ratsInCockpit
+        self.has_rats_in_cockpit = ratsInCockpit
         self.fuel_level = fuelLevel
         self.crew_members = crewMembers
 
     def __str__(self):
-        return f"--------------------------------\n\n| STATUS OF {self.name.upper()} |\n\nEngine installed:\t\t{self.has_engine}\nHas a parachute:\t\t{self.has_parachute}\nHas rats in the cockpit:\t{self.rats_in_cockpit}\nFuel level:\t\t\t{self.fuel_level}%\nNumber of astronauts:\t\t{self.crew_members}\n\n--------------------------------\n"
+        return f"--------------------------------\n\n| STATUS OF {self.name.upper()} |\n\nEngine installed:\t\t{self.has_engine}\nHas a parachute:\t\t{self.has_parachute}\nHas rats in the cockpit:\t{self.has_rats_in_cockpit}\nFuel level:\t\t\t{self.fuel_level}%\nNumber of astronauts:\t\t{self.crew_members}\n\n--------------------------------\n"
 
 
 rocket_1 = Rocket("Saturn V", True, True, False, 100, 3)

@@ -4,7 +4,8 @@ from random import randint
 
 
 
-
+########################
+#  ONLY CHANGE THESE!  #
 ########################
 
 # How long to wait until starting the landing burn
@@ -12,7 +13,7 @@ delay = 30
 # How long the burn will last
 duration = 20
 # The power level of the engine
-engine_power = 1
+engine_power = 1.4
 
 ########################
 
